@@ -11,17 +11,15 @@ class CheckAuthMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        // biarkan semua route auth/* lewat tanpa dicek
-        if ($request->is('auth/*')) {
-            return $next($request);
-        }
+      // biarkan route auth/*
+      if ($request->is('auth/*')) {
+          return $next($request);
+      }
 
-        // kalau sudah login, lanjut
-        if (Auth::check()) {
-            return $next($request);
-        }
+      if (Auth::check()) {
+          return $next($request);
+      }
 
-        // kalau belum login, arahkan ke halaman login
-        return redirect('/auth/login');
+      return redirect()->route('auth.login');
     }
 }

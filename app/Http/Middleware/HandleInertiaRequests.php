@@ -7,10 +7,6 @@ use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
 {
-    /**
-     * Blade view root untuk Inertia.
-     * Sesuaikan kalau kamu pakai nama lain.
-     */
     protected $rootView = 'app';
 
     public function share(Request $request): array
@@ -18,10 +14,6 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
-            ],
-            'flash' => [
-                'success' => session('success'),
-                'error' => session('error'),
             ],
         ]);
     }
