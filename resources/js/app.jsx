@@ -12,9 +12,9 @@ createInertiaApp({
 
     resolve: (name) => {
 
-        const pages = import.meta.glob("./Pages/**/*.jsx", { eager: true });
+        const pages = import.meta.glob("./pages/**/*.jsx", { eager: true });
 
-        return pages[`./Pages/${name}.jsx`];
+        return pages[`./pages/${name}.jsx`];
 
     },
 
@@ -25,3 +25,4 @@ createInertiaApp({
     },
 
 });
+

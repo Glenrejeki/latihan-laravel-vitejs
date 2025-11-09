@@ -1,54 +1,21 @@
 {
-
-    "compilerOptions": {
-
-        "target": "es5",
-
-        "module": "esnext",
-
-        "moduleResolution": "node",
-
-        "baseUrl": "./",
-
-        "paths": {
-
-            "@/*": ["./resources/js/*"],
-
-            "@/components/*": ["./resources/js/Components/*"],
-
-            "@/lib/*": ["./resources/js/lib/*"]
-
-        },
-
-        "lib": ["dom", "dom.iterable", "esnext"],
-
-        "allowJs": true,
-
-        "skipLibCheck": true,
-
-        "esModuleInterop": true,
-
-        "allowSyntheticDefaultImports": true,
-
-        "strict": true,
-
-        "forceConsistentCasingInFileNames": true,
-
-        "noFallthroughCasesInSwitch": true,
-
-        "resolveJsonModule": true,
-
-        "isolatedModules": true,
-
-        "noEmit": true,
-
-        "jsx": "preserve"
-
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "paths": {
+      "@/*": ["./resources/js/*"],
+      "@/components/*": ["./resources/js/components/*"],
+      "@/lib/*": ["./resources/js/lib/*"]
     },
-
-    "include": ["resources/js/**/*"],
-
-    "exclude": ["node_modules", "vendor"]
-
+    "ignoreDeprecations": "6.0"
+  },
+  "include": ["resources/js/**/*", "resources/**/*.ts", "resources/**/*.tsx"],
+  "exclude": ["node_modules", "vendor"]
 }
-

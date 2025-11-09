@@ -1,15 +1,17 @@
 import React from "react";
 
-import { Link, usePage } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 
 import { Button } from "@/components/ui/button";
 
 
 export default function AppLayout({ children }) {
 
-    // Ambil data dari controller Laravel
+    const onLogout = () => {
 
-    const { nama_lengkap } = usePage().props;
+        router.get("/auth/logout");
+
+    };
 
 
     return (
@@ -28,15 +30,15 @@ export default function AppLayout({ children }) {
 
                             <Link href="/" className="text-lg font-bold">
 
-                                {nama_lengkap}
+                                DelTodos
 
                             </Link>
 
                         </div>
 
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" onClick={onLogout}>
 
-                            Login
+                            Logout
 
                         </Button>
 

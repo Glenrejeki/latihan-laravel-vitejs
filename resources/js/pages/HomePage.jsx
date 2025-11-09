@@ -1,6 +1,6 @@
 import React from "react";
 
-import AppLayout from "@/Layouts/AppLayout";
+import AppLayout from "@/layouts/AppLayout";
 
 import { Button } from "@/components/ui/button";
 
