@@ -11,8 +11,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // di sinilah alias middleware kamu taruh
+        $middleware->alias([
+            'check.auth' => \App\Http\Middleware\CheckAuthMiddleware::class,
+            'handle.inertia' => \App\Http\Middleware\HandleInertiaRequests::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
-    })->create();
+    })
+    ->create();

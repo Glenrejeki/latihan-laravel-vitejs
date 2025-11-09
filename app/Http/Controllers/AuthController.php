@@ -1,164 +1,53 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
-
-use App\Models\User;
-
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Auth;
 
-use Illuminate\Support\Facades\Hash;
-
-use Inertia\Inertia;
-
-
 class AuthController extends Controller
-
 {
-
-    // Login
-
-    // -------------------------------
-
     public function login()
-
     {
-
+        // kalau sudah login, gak usah lihat login
         if (Auth::check()) {
-
             return redirect()->route('home');
-
         }
 
-
-        // Ambil session success dari redirect sebelumnya
-
-        $success = session('success');
-
-
-        $data = [
-
-            'success' => $success,
-
-        ];
-
-        return Inertia::render('auth/LoginPage', $data);
-
+        return view('auth.login');
     }
-
 
     public function postLogin(Request $request)
-
     {
+        $credentials = $request->only('email', 'password');
 
-        $request->validate([
-
-            'email' => 'required|email|max:250',
-
-            'password' => 'required|string|min:6',
-
-        ]);
-
-
-        // Periksa apakah pengguna berhasil login
-
-        if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-
-            return back()->withErrors([
-
-                'email' => 'Email atau password salah.',
-
-            ])->onlyInput('email');
-
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->route('home');
         }
 
-
-        // Jika berhasil, redirect ke halaman home
-
-        return redirect()->route('home');
-
+        return back()->withErrors([
+            'email' => 'Email atau password salah.',
+        ]);
     }
-
-
-    // Register
-
-    // -------------------------------
 
     public function register()
-
     {
-
-        if (Auth::check()) {
-
-            return redirect()->route('home');
-
-        }
-
-
-        $data = [];
-
-        return Inertia::render('auth/RegisterPage', $data);
-
+        return 'halaman register (belum diisi)';
     }
-
 
     public function postRegister(Request $request)
-
     {
-
-        // Validasi input pendaftaran
-
-        $request->validate([
-
-            'name' => 'required|string|max:50',
-
-            'email' => 'required|string|email|max:255|unique:users',
-
-            'password' => 'required|string',
-
-        ]);
-
-
-        // Daftarkan user
-
-        User::create([
-
-            'name' => $request->name,
-
-            'email' => $request->email,
-
-            'password' => Hash::make($request->password),
-
-        ]);
-
-
-        // Redirect ke halaman login dengan pesan sukses
-
-        return redirect()->route('auth.login')->with('success', 'Pendaftaran berhasil dilakukan! Silakan login.');
-
+        // isi sesuai kebutuhan
+        return back();
     }
-
-
-    // Logout
-
-    // -------------------------------
 
     public function logout(Request $request)
-
     {
-
         Auth::logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
-
         return redirect()->route('auth.login');
-
     }
-
 }
